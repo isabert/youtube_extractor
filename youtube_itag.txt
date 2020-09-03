@@ -1,0 +1,118 @@
+YouTube video stream format codes:
+(also ref: https://gist.github.com/sidneys/7095afe4da4ae58694d128b1034e01e2)
+
+  itag       Container                   Resolution              Audio     AvgBitrate             Video
+  ----       ---------  ---------------------------    ---------------     ----------  ---------------- 
+   '5': {'ext': 'flv',  'width': 400,  'height': 240,  'acodec': 'mp3',    'abr': 64,  'vcodec': 'h263'},
+   '6': {'ext': 'flv',  'width': 450,  'height': 270,  'acodec': 'mp3',    'abr': 64,  'vcodec': 'h263'},
+  '13': {'ext': '3gp',                                 'acodec': 'aac',                'vcodec': 'mp4v'},
+  '17': {'ext': '3gp',  'width': 176,  'height': 144,  'acodec': 'aac',    'abr': 24,  'vcodec': 'mp4v'},
+  '18': {'ext': 'mp4',  'width': 640,  'height': 360,  'acodec': 'aac',    'abr': 96,  'vcodec': 'h264'},
+  '22': {'ext': 'mp4',  'width': 1280, 'height': 720,  'acodec': 'aac',    'abr': 192, 'vcodec': 'h264'},
+  '34': {'ext': 'flv',  'width': 640,  'height': 360,  'acodec': 'aac',    'abr': 128, 'vcodec': 'h264'},
+  '35': {'ext': 'flv',  'width': 854,  'height': 480,  'acodec': 'aac',    'abr': 128, 'vcodec': 'h264'},
+  '36': {'ext': '3gp',  'width': 320,                  'acodec': 'aac',                'vcodec': 'mp4v'},  # 320x180 (BaW_jenozKc), 320x240 (__2ABJjxzNo), abr varies as well
+  '37': {'ext': 'mp4',  'width': 1920, 'height': 1080, 'acodec': 'aac',    'abr': 192, 'vcodec': 'h264'},
+  '38': {'ext': 'mp4',  'width': 4096, 'height': 3072, 'acodec': 'aac',    'abr': 192, 'vcodec': 'h264'},
+  '43': {'ext': 'webm', 'width': 640,  'height': 360,  'acodec': 'vorbis', 'abr': 128, 'vcodec': 'vp8'},
+  '44': {'ext': 'webm', 'width': 854,  'height': 480,  'acodec': 'vorbis', 'abr': 128, 'vcodec': 'vp8'},
+  '45': {'ext': 'webm', 'width': 1280, 'height': 720,  'acodec': 'vorbis', 'abr': 192, 'vcodec': 'vp8'},
+  '46': {'ext': 'webm', 'width': 1920, 'height': 1080, 'acodec': 'vorbis', 'abr': 192, 'vcodec': 'vp8'},
+  '59': {'ext': 'mp4',  'width': 854,  'height': 480,  'acodec': 'aac',    'abr': 128, 'vcodec': 'h264'},
+  '78': {'ext': 'mp4',  'width': 854,  'height': 480,  'acodec': 'aac',    'abr': 128, 'vcodec': 'h264'},
+ 
+ # 3D videos
+  '82': {'ext': 'mp4',                 'height': 360,  'acodec': 'aac',    'abr': 128, 'vcodec': 'h264',            'format_note': '3D', 'preference': -20},
+  '83': {'ext': 'mp4',                 'height': 480,  'acodec': 'aac',    'abr': 128, 'vcodec': 'h264',            'format_note': '3D', 'preference': -20},
+  '84': {'ext': 'mp4',                 'height': 720,  'acodec': 'aac',    'abr': 192, 'vcodec': 'h264',            'format_note': '3D', 'preference': -20},
+  '85': {'ext': 'mp4',                 'height': 1080, 'acodec': 'aac',    'abr': 192, 'vcodec': 'h264',            'format_note': '3D', 'preference': -20},
+ '100': {'ext': 'webm',                'height': 360,  'acodec': 'vorbis', 'abr': 128, 'vcodec': 'vp8',             'format_note': '3D', 'preference': -20},
+ '101': {'ext': 'webm',                'height': 480,  'acodec': 'vorbis', 'abr': 192, 'vcodec': 'vp8',             'format_note': '3D', 'preference': -20},
+ '102': {'ext': 'webm',                'height': 720,  'acodec': 'vorbis', 'abr': 192, 'vcodec': 'vp8',             'format_note': '3D', 'preference': -20},
+ 
+ # Apple HTTP Live Streaming
+  '91': {'ext': 'mp4',                 'height': 144,  'acodec': 'aac',    'abr': 48,  'vcodec': 'h264',            'format_note': 'HLS', 'preference': -10},
+  '92': {'ext': 'mp4',                 'height': 240,  'acodec': 'aac',    'abr': 48,  'vcodec': 'h264',            'format_note': 'HLS', 'preference': -10},
+  '93': {'ext': 'mp4',                 'height': 360,  'acodec': 'aac',    'abr': 128, 'vcodec': 'h264',            'format_note': 'HLS', 'preference': -10},
+  '94': {'ext': 'mp4',                 'height': 480,  'acodec': 'aac',    'abr': 128, 'vcodec': 'h264',            'format_note': 'HLS', 'preference': -10},
+  '95': {'ext': 'mp4',                 'height': 720,  'acodec': 'aac',    'abr': 256, 'vcodec': 'h264',            'format_note': 'HLS', 'preference': -10},
+  '96': {'ext': 'mp4',                 'height': 1080, 'acodec': 'aac',    'abr': 256, 'vcodec': 'h264',            'format_note': 'HLS', 'preference': -10},
+ '132': {'ext': 'mp4',                 'height': 240,  'acodec': 'aac',    'abr': 48,  'vcodec': 'h264',            'format_note': 'HLS', 'preference': -10},
+ '151': {'ext': 'mp4',                 'height': 72,   'acodec': 'aac',    'abr': 24,  'vcodec': 'h264',            'format_note': 'HLS', 'preference': -10},
+ 
+ # DASH mp4 video
+ '133': {'ext': 'mp4',                 'height': 240,                                  'vcodec': 'h264',            'format_note': 'DASH video'},
+ '134': {'ext': 'mp4',                 'height': 360,                                  'vcodec': 'h264',            'format_note': 'DASH video'},
+ '135': {'ext': 'mp4',                 'height': 480,                                  'vcodec': 'h264',            'format_note': 'DASH video'},
+ '136': {'ext': 'mp4',                 'height': 720,                                  'vcodec': 'h264',            'format_note': 'DASH video'},
+ '137': {'ext': 'mp4',                 'height': 1080,                                 'vcodec': 'h264',            'format_note': 'DASH video'},
+ '138': {'ext': 'mp4',                                                                 'vcodec': 'h264',            'format_note': 'DASH video'},  # height can vary
+ '160': {'ext': 'mp4',                 'height': 144,                                  'vcodec': 'h264',            'format_note': 'DASH video'},
+ '212': {'ext': 'mp4',                 'height': 480,                                  'vcodec': 'h264',            'format_note': 'DASH video'},
+ '264': {'ext': 'mp4',                 'height': 1440,                                 'vcodec': 'h264',            'format_note': 'DASH video'},
+ '298': {'ext': 'mp4',                 'height': 720,                                  'vcodec': 'h264', 'fps': 60, 'format_note': 'DASH video'},
+ '299': {'ext': 'mp4',                 'height': 1080,                                 'vcodec': 'h264', 'fps': 60, 'format_note': 'DASH video'},
+ '266': {'ext': 'mp4',                 'height': 2160,                                 'vcodec': 'h264',            'format_note': 'DASH video'},
+ 
+ # Dash mp4 audio
+ '139': {'ext': 'm4a',                                 'acodec': 'aac',    'abr': 48,                               'format_note': 'DASH audio'},
+ '140': {'ext': 'm4a',                                 'acodec': 'aac',    'abr': 128,                              'format_note': 'DASH audio'},
+ '141': {'ext': 'm4a',                                 'acodec': 'aac',    'abr': 256,                              'format_note': 'DASH audio'},
+ '256': {'ext': 'm4a',                                 'acodec': 'aac',                                             'format_note': 'DASH audio'},
+ '258': {'ext': 'm4a',                                 'acodec': 'aac',                                             'format_note': 'DASH audio'},
+ '325': {'ext': 'm4a',                                 'acodec': 'dtse',                                            'format_note': 'DASH audio'},
+ '328': {'ext': 'm4a',                                 'acodec': 'ec-3',                                            'format_note': 'DASH audio'},
+ 
+ # Dash webm
+ '167': {'ext': 'webm', 'width': 640,  'height': 360,                                  'vcodec': 'vp8',             'format_note': 'DASH video'},
+ '168': {'ext': 'webm', 'width': 854,  'height': 480,                                  'vcodec': 'vp8',             'format_note': 'DASH video'},
+ '169': {'ext': 'webm', 'width': 1280, 'height': 720,                                  'vcodec': 'vp8',             'format_note': 'DASH video'},
+ '170': {'ext': 'webm', 'width': 1920, 'height': 1080,                                 'vcodec': 'vp8',             'format_note': 'DASH video'},
+ '218': {'ext': 'webm', 'width': 854,  'height': 480,                                  'vcodec': 'vp8',             'format_note': 'DASH video'},
+ '219': {'ext': 'webm', 'width': 854,  'height': 480,                                  'vcodec': 'vp8',             'format_note': 'DASH video'},
+ '278': {'ext': 'webm',                'height': 144,                                  'vcodec': 'vp9',             'format_note': 'DASH video'},
+ '242': {'ext': 'webm',                'height': 240,                                  'vcodec': 'vp9',             'format_note': 'DASH video'},
+ '243': {'ext': 'webm',                'height': 360,                                  'vcodec': 'vp9',             'format_note': 'DASH video'},
+ '244': {'ext': 'webm',                'height': 480,                                  'vcodec': 'vp9',             'format_note': 'DASH video'},
+ '245': {'ext': 'webm',                'height': 480,                                  'vcodec': 'vp9',             'format_note': 'DASH video'},
+ '246': {'ext': 'webm',                'height': 480,                                  'vcodec': 'vp9',             'format_note': 'DASH video'},
+ '247': {'ext': 'webm',                'height': 720,                                  'vcodec': 'vp9',             'format_note': 'DASH video'},
+ '248': {'ext': 'webm',                'height': 1080,                                 'vcodec': 'vp9',             'format_note': 'DASH video'},
+ '271': {'ext': 'webm',                'height': 1440,                                 'vcodec': 'vp9',             'format_note': 'DASH video'},
+ '272': {'ext': 'webm',                'height': 2160,                                 'vcodec': 'vp9',             'format_note': 'DASH video'},  # 3840x2160 (RtoitU2A-3E), 7680x4320 (sLprVF6d7Ug)
+ '302': {'ext': 'webm',                'height': 720,                                  'vcodec': 'vp9',  'fps': 60, 'format_note': 'DASH video'},
+ '303': {'ext': 'webm',                'height': 1080,                                 'vcodec': 'vp9',  'fps': 60, 'format_note': 'DASH video'},
+ '308': {'ext': 'webm',                'height': 1440,                                 'vcodec': 'vp9',  'fps': 60, 'format_note': 'DASH video'},
+ '313': {'ext': 'webm',                'height': 2160,                                 'vcodec': 'vp9',             'format_note': 'DASH video'},
+ '315': {'ext': 'webm',                'height': 2160,                                 'vcodec': 'vp9',  'fps': 60, 'format_note': 'DASH video'},
+ 
+ # Dash webm audio
+ '171': {'ext': 'webm',                                'acodec': 'vorbis', 'abr': 128,                              'format_note': 'DASH audio'},
+ '172': {'ext': 'webm',                                'acodec': 'vorbis', 'abr': 256,                              'format_note': 'DASH audio'},
+ 
+ # Dash webm audio with opus inside
+ '249': {'ext': 'webm',                                'acodec': 'opus',   'abr': 50,                               'format_note': 'DASH audio'},
+ '250': {'ext': 'webm',                                'acodec': 'opus',   'abr': 70,                               'format_note': 'DASH audio'},
+ '251': {'ext': 'webm',                                'acodec': 'opus',   'abr': 160,                              'format_note': 'DASH audio'},
+
+ # hdr??
+ '330': {'ext': 'webm',                'height': 144,                                  'vcodec': '???',  'fps': 60, 'format_note': 'hdr'},  # hdr=range?
+ '331': {'ext': 'webm',                'height': 240,                                  'vcodec': '???',  'fps': 60, 'format_note': 'hdr'},  # hdr=range?
+ '332': {'ext': 'webm',                'height': 360,                                  'vcodec': '???',  'fps': 60, 'format_note': 'hdr'},  # hdr=range?
+ '333': {'ext': 'webm',                'height': 480,                                  'vcodec': '???',  'fps': 60, 'format_note': 'hdr'},  # hdr=range?
+ '334': {'ext': 'webm',                'height': 720,                                  'vcodec': '???',  'fps': 60, 'format_note': 'hdr'},  # hdr=range?
+ '335': {'ext': 'webm',                'height': 1080,                                 'vcodec': '???',  'fps': 60, 'format_note': 'hdr'},  # hdr=range?
+ '336': {'ext': 'webm',                'height': 1440,                                 'vcodec': '???',  'fps': 60, 'format_note': 'hdr'},  # hdr=range?
+ '337': {'ext': 'webm',                'height': 2160,                                 'vcodec': '???',  'fps': 60, 'format_note': 'hdr'},  # hdr=range?
+ 
+ # av01 video only formats sometimes served with "unknown" codecs(???)
+ '394': {'ext': 'mp4',                 'height': 144,  'acodec': 'none',               'vcodec': 'av01.0.05M.08'},
+ '395': {'ext': 'mp4',                 'height': 240,  'acodec': 'none',               'vcodec': 'av01.0.05M.08'},
+ '396': {'ext': 'mp4',                 'height': 360,  'acodec': 'none',               'vcodec': 'av01.0.05M.08'},
+ '397': {'ext': 'mp4',                 'height': 480,  'acodec': 'none',               'vcodec': 'av01.0.05M.08'},
+ '398': {'ext': 'mp4',                 'height': 720,  'acodec': 'none',               'vcodec': 'av01.0.05M.08'},
+ '399': {'ext': 'mp4',                 'height': 1080, 'acodec': 'none',               'vcodec': 'av01.0.05M.08'},
+ '400': {'ext': 'mp4',                 'height': 1440, 'acodec': 'none',               'vcodec': 'av01.0.05M.08'},
+ '401': {'ext': 'mp4',                 'height': 2160, 'acodec': 'none',               'vcodec': 'av01.0.05M.08'},
+ '402': {'ext': 'mp4',                 'height': 2880, 'acodec': 'none',               'vcodec': 'av01.0.05M.08'},
+ 
