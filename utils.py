@@ -147,7 +147,7 @@ def http_get(url=None, headers=std_http_headers, qs=None, fn=None, method=None):
         # adding more querys onto url
         url += parse.urlencode(qs)
 
-    req = request.Request(url, headers=std_http_headers, method=method)
+    req = request.Request(url, headers=headers, method=method)
     # urlopen always returns an obj (http.client.HTTPResonse if http/s) as a context
     # manager that supports:
     #  - geturl()   retrieved url (can determine if a redirect was followed)
