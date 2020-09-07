@@ -109,7 +109,7 @@ class YoutubeER(BaseExtractor):
         # video id part of /watch?v=<video_id> or /<video-id>
         mobj = re_search(_PATTERN_VIDU_ID, url, ret_idx=False)
         if mobj is None:
-            logger.error("%s didn't find video ID in %s.", self.__class__, url)
+            logger.error("%s didn't find video ID in %s.", self.__class__.__name__, url)
             return
         else:
             vidu_id = mobj.group(1)
