@@ -34,7 +34,7 @@ from ..jsinterp import (
 _PATTERN_VIDU_ID = r"(?:v=|\/)([0-9A-Za-z_-]{11}).*"
 _TMPLT_WATCH_URL = "https://www.youtube.com/watch?v={}"             # may skip 'www'
 _TMPLT_EMBED_URL = "https://www.youtube.com/embed/{}"
-_TMPLT_ERUL      = "https://youtube.googleapis.com/v/{}"
+_TMPLT_EURL      = "https://youtube.googleapis.com/v/{}"
 _TMPLT_VIDU_INFO_URL = "https://www.youtube.com/get_video_info?"    # may skip 'www'
 
 # video information template
@@ -118,7 +118,7 @@ class YoutubeER(BaseExtractor):
         # normalized url and other possible forms of url
         self.params['watch_url'] = _TMPLT_WATCH_URL.format(vidu_id)
         self.params['embed_url'] = _TMPLT_EMBED_URL.format(vidu_id)
-        self.params['eurl']      = _TMPLT_ERUL.format(vidu_id)
+        self.params['eurl']      = _TMPLT_EURL.format(vidu_id)
 
         # additional in youtube url query:
         #   has_verified=1  will pass age-restriction
@@ -285,7 +285,7 @@ class YoutubeER(BaseExtractor):
 
             # response got from get_video_info is a query string, convert it to dict first
             # parse the query string into dict (or, = {k:v for k,v in parse_qsl(<data>))
-            video_info =  parse.parse_qs(self.params['vidu_info'])  # values'll be a list
+            video_info = parse.parse_qs(self.params['vidu_info'])  # values'll be a list
 
             # get player_response
             player_response = json_load(video_info['player_response'][0])
@@ -306,7 +306,7 @@ class YoutubeER(BaseExtractor):
                 if plcfg_args.get('url_encoded_fmt_stream_map') or plcfg_args.get('hlsvp'):
                     # video info maybe in plcfg args if hls or stream. read in the dict str
                     # notice same video info can get from get_video_info too but in query str as above.
-                    video_info = dict((k, [v]) for k, v in args.items())
+                    video_info = dict((k, [v]) for k, v in plcfg_args.items())
                 if not video_info and plcfg_args.get('ypc_vid'):
                     logger.warning("%s: paid and rental video not supported. check preview: %s",
                                    vidu_id, plcfg_args['ypc_vid'])
