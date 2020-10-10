@@ -10,9 +10,9 @@ import logging
 import argparse
 import time
 import signal
+import platform
 
 # add script path into pythonpath for pkg search (before main())
-
 if __package__ is None and not hasattr(sys, 'frozen'):
     # direct call of __main__.py
     import os.path
@@ -36,24 +36,17 @@ def progress_bar(curr_size, tot_size, start_epoch=None, ch="█", scale=0.68):
     remaining = w_width - filled
     bar = ch * filled + " " * remaining
     percent = round(100.0 * curr_size / float(tot_size), 1)
+    elapsed = time.time() - start_epoch
     if start_epoch and percent >= 0.1 and (curr_size < int(tot_size)):
-        secleft=int((time.time()-start_epoch) * (100-percent)/percent)
-        if   secleft > 3600000:
-            timeleft = "slow..."
-        elif secleft > 3600:
-            timeleft = "%dh %dm left  " % (int(secleft/3600), int((secleft%3600)/60))
-        elif secleft > 600:
-            timeleft = "%dm %ds left  " % (int(secleft/60), int(secleft%60))
-        else:
-            timeleft = "%ds left      " % int(secleft)
+        secleft=int(elapsed * (100-percent)/percent)
+        timeleft = "ETA %s" % time.strftime("%H:%M:%S", time.gmtime(secleft))
     elif curr_size == int(tot_size):
-        timeleft ="done in " + time.strftime("%H:%M:%S",
-                  time.gmtime(int(time.time()-start_epoch)))
+        timeleft = "dur %s" % time.strftime("%H:%M:%S", time.gmtime(elapsed))
     else: timeleft = ""         # when %=0
     text = " ↳ |{bar}| {percent}% ({cur:>0.1f}/{tot:<0.1f}MB){sep}{timeleft}\r".format(
             bar=bar, percent=percent, cur=curr_size/1048576, tot=tot_size/1048576,
             sep=", " if timeleft else "", timeleft=timeleft)
-    # use write() to avoid newline and flush() to force buffer onto stdout 
+    # use write() to avoid newline and flush() to force buffer onto stdout
     sys.stdout.write(text)
     if (curr_size == tot_size): sys.stdout.write("\n")
     sys.stdout.flush()
@@ -64,7 +57,8 @@ def cli_main():
     # get terminal size. default return COLUMNSxLINES=80x24 (py3.3+)
     # or use os.popen("stty size", "r").read().split()
     w_size['w_col'], w_size['w_row'] = shutil.get_terminal_size()
-    parser = argparse.ArgumentParser()#description=__doc__)
+
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--version", action="version", version="%(prog)s "+prog_version)
     parser.add_argument("-v", action="count", dest="verbose_lvl", default=0,
         help="Upto four levels (-vvvv): warning, info, debug, details. If not given, default error level")
@@ -86,7 +80,7 @@ def cli_main():
     _nlvl = getattr(logging, _llvl[args.verbose_lvl], logging.ERROR)
     _logging_fmt = logging.Formatter(
         fmt="%(asctime)s,%(msecs)03d [%(module)s #%(lineno)d] %(levelname)s - %(message)s",
-        datefmt="%H:%M:%S")     # asctime without datefmt gives Y-M-D H:M:S.s 
+        datefmt="%H:%M:%S")     # asctime without datefmt gives Y-M-D H:M:S.s
     set_logging(_nlvl, _logging_fmt, _log_html)
 
     def interrupt(signum, frame):   # given with 2 args. used for timeout userinput below
@@ -99,24 +93,36 @@ def cli_main():
         if _streams == "": continue
         print(_streams)
         if args.list_only: continue
-        '''
+
         # auto or user select
         TIMEOUT = 18  # sec
-        print("Wait %s seconds to auto-download, or select ids (separate by ,), or 0 to skip: " % TIMEOUT,
-              end="")
-        sys.stdout.flush()
-        signal.signal(signal.SIGALRM, interrupt)
-        signal.alarm(TIMEOUT)
-        try:
-            _sel = input()
-            signal.alarm(0) # disable the alarm after success
-        except ValueError:
-            _sel = ""
+        _osname = platform.system()
+        _sel = ""
+        if (_osname == "Linux") or ("CYGWIN" in _osname) or (_osname.lower() == "unix"):
+            # use SIGALRM for Linux
+            print("Wait %s seconds to auto-download, or select ids (separate by ,), or 0 to skip: " % TIMEOUT,
+                   end="")
+            sys.stdout.flush()
+            signal.signal(signal.SIGALRM, interrupt)
+            signal.alarm(TIMEOUT)
+            try:
+                _sel = input()
+                signal.alarm(0) # disable the alarm after success
+            except ValueError:
+                _sel = ""
+        elif _osname == "Windows":
+            # use Ctrl+c (SIGINT to raise KeyboardInterrupt) for Windows
+            print("Wait %s seconds to auto-download, or press <ctrl>+c to choose: " % TIMEOUT, end="")
+            sys.stdout.flush()
+            try:
+                time.sleep(TIMEOUT)
+                _sel = ""
+            except KeyboardInterrupt:
+                print("select ids (separate by ,) or 0 to skip: ", end="")
+                sys.stdout.flush()
+                _sel = input()
         _sel = _sel.strip().split(",")
         _sel = [i.strip() for i in _sel if i]   # will be [] if all empty
-        '''
-
-        _sel=False
 
         # download
         if _sel:
@@ -129,7 +135,7 @@ def cli_main():
         if _captions == "": continue
         print("Available captions/subtitles: ", _captions)
         dlv._captions()
-        
+
     #TODO: *)save/load cache *)playlist *)rate-limit
 
 
@@ -138,4 +144,3 @@ if __name__ == '__main__':
     if py_ver < (3,3,0):
         print("{} not supported. Need python3+".format(sys.version.split(' ')[0])); exit(1)
     cli_main()
-
